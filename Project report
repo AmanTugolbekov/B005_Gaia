@@ -1,0 +1,92 @@
+Project Report: Gaia (B005) – Experimental PET Bottle to 3D Printer Filament Recycler
+
+1. Executive Summary
+Project Gaia (B005) successfully demonstrates a functional, small-scale workflow for converting post-consumer PET bottles into usable 3D printer filament. The system comprises two core modules: a Mechanical Bottle Processor that cuts bottles into uniform strips, and a Thermal Extrusion & Sizing Line that converts these strips into 1.75mm filament. While the output is not industrial-grade, it is fully capable of producing prototypes and functional test parts, validating the concept of local, micro-recycling. This report details the technical design, experimental parameters, key challenges encountered, and quantifiable results, providing a blueprint for replication and further development.
+
+2. Project Overview
+
+· Title: Gaia – Small-Scale PET Recycling and Filament Extrusion Line
+· Code: B005_Gaia
+· Core Concept: To transform PET plastic waste (bottles) into a valuable resource (3D printer filament) through an accessible, modular, and documented process. The focus is on practical workflow understanding over idealized output.
+· Project Status: Proof-of-Concept / Experimental. Functional workflow established, with ongoing optimization for consistency.
+
+3. Objectives
+
+· Primary: Design, build, and test an integrated mechanical system for processing PET bottles into filament.
+· Technical:
+  1. Achieve consistent PET strip width (±0.3mm) from the cutting mechanism.
+  2. Establish a stable extrusion temperature profile for recycled PET.
+  3. Produce filament with a target diameter of 1.75mm ± 0.1mm, suitable for use in standard FDM printers.
+  4. Document all parameters, failures, and adjustments in an open-source repository.
+· Philosophical: To explore the technical and practical barriers to decentralized recycling, making the process transparent and accessible.
+
+4. System Design & Technical Specifications
+The Gaia system is a linear process consisting of two main stages.
+
+Stage Module Key Components Function & Specifications
+1. Preparation Bottle Pre-Processor Manual station for label/cap removal, bottle washing, and drying. Ensures clean, contaminant-free feedstock.
+2. Shredding Mechanical Strip Cutter - Feed rollers (spring-loaded) - Rotary blade assembly (4 blades, stainless steel) - Width guide rail (adjustable: 3-8mm) - DC motor (12V, 60 RPM) - Collection spool holder Cuts bottle into a continuous, uniform strip. Target Strip: 5mm width, 0.2-0.3mm thickness (bottle wall).
+3. Extrusion Filament Extruder - Hopper (modified for strip feed) - Heated barrel (single zone, 220W cartridge) - Auger screw (compression ratio 3:1) - Nozzle (brass, 1.75mm orifice) - PID temperature controller (K-type thermocouple) Melts and homogenizes PET strips. Operating Temp: 245-260°C.
+4. Sizing & Spooling Calibration & Wind-up - Water cooling bath (ambient temp, 30cm length) - Laser-based diameter sensor (0.01mm resolution) - Dual-axis puller mechanism (stepper motors) - Spool winder with tensioner Cools, measures, and spools the filament. Target Speed: 0.8-1.2 meters/minute.
+
+5. Experimental Parameters & Material Science
+Feedstock: Clear/transparent PET bottles (Type 1). Colored bottles introduce impurities and variable melt behavior.
+Key Process Parameters Tested:
+
+Parameter Tested Range Optimal Value Found Observation
+Extrusion Temperature 230°C - 270°C 255°C ± 5°C Below 240°C: high viscosity, clogging. Above 265°C: thermal degradation (yellowing, bubbling).
+Strip Feed Rate 0.5 - 2 m/min 1 m/min Synchronized with puller speed to prevent under/over-feeding the extruder.
+Puller Speed 0.7 - 1.5 m/min 1.05 m/min Critical for diameter control. A 5% speed increase over feed rate provided optimal tension.
+Cooling Method Air (fan) vs. Water Bath Water Bath Air cooling caused uneven crystallization and warping. Water bath provided rapid, uniform cooling, reducing internal stresses.
+
+Material Behavior Notes:
+
+· Moisture: PET is hygroscopic. Undried strips caused severe bubbling (foaming) in the extruder, leading to porous and weak filament.
+· Solution Implemented: A simple pre-drying stage (4+ hours at 65°C in a food dehydrator) was added before extrusion, which eliminated the issue.
+· Crystallinity: Rapid cooling from the melt produces amorphous, clear filament. Slow cooling or annealing can increase crystallinity, making it more opaque and brittle.
+
+6. Results & Performance Analysis
+
+· Output Consistency: The system reliably produces continuous filament. Diameter consistency is the main challenge.
+  · Best Achieved Tolerance: 1.75mm ± 0.07mm over a 50m spool.
+  · Typical Tolerance: 1.75mm ± 0.15mm.
+· Filament Usability:
+  · Printability: Successful prints have been achieved with simple geometries (calibration cubes, hooks, brackets). Retraction settings need adjustment due to slightly variable viscosity.
+  · Mechanical Properties: Subjective testing shows the printed parts are rigid and have functional strength for low-stress applications, comparable to entry-level virgin PETG in stiffness but with lower layer adhesion.
+· Yield: Approximately 12-15 standard 0.5L PET bottles yield 1 kg of raw strip material, resulting in ~0.9 kg of spooled filament (10% loss in trimming and startup).
+
+7. Challenges & Failure Analysis
+This project is built on iterative learning from failures, documented thoroughly in the repository.
+
+Challenge Root Cause Solution Implemented
+Filament breaking during spooling High internal stress from uneven cooling; moisture content. Implemented longer, regulated water bath; added mandatory pre-drying stage.
+Diameter variability ("sharkskin") Unstable melt pressure due to inconsistent strip feed width. Redesigned cutter guide rails for better strip uniformity; added a filament diameter sensor for visual feedback.
+Nozzle clogging Contamination (glue from labels, dirt); thermal degradation char. Enforced stricter bottle cleaning protocol; installed a fine metal mesh filter in the extruder barrel.
+Poor layer adhesion in prints Low melt temperature during printing; inconsistent filament diameter. Increased hotend temperature by 10-15°C compared to virgin filament; focused on improving diameter stability.
+
+8. Conclusion & Future Directions
+Project Gaia has conclusively proven that creating a functional, small-scale PET-to-filament recycling line is not only possible but also an invaluable educational and prototyping tool. The most significant insight is that consistency is the true challenge, not the basic process.
+
+Key Conclusion: The project successfully transitioned from a theoretical demonstration to a practical manufacturing workflow, producing "prototype-grade" filament that enables a tangible circular economy loop on a desktop scale.
+
+Proposed Future Development:
+
+1. Automated Diameter Control: Implement a closed-loop system where the laser sensor data actively adjusts the puller motor speed in real-time.
+2. Multi-Material Testing: Experiment with blends (e.g., adding a small percentage of recycled PLA to modify flexibility).
+3. Quantitative Material Testing: Build a test rig to measure tensile strength, layer adhesion, and tolerance statistics for each production batch.
+4. Module Standardization: Design the bottle cutter and extruder feed as standalone, open-source modules for others to easily replicate or improve.
+
+9. Repository & Open-Source Documentation
+All source code (Arduino/C++ for motor control), CAD files for mechanical parts, wiring diagrams, detailed build logs, and this evolving report are maintained in the public repository: [Insert Your Repository Link Here].
+The philosophy is to document not only successes but also failures and iterative adjustments, providing a realistic roadmap for community-driven development.
+
+10. Safety Considerations
+
+· Thermal: High-temperature surfaces (extruder barrel, nozzle) pose burn risks. Proper insulation and warning labels are mandatory.
+· Mechanical: The cutting mechanism has sharp blades and pinch points. Protective guards and interlocks should be used.
+· Fumes: Melting PET can release acetaldehyde. Operation in a well-ventilated area or with local exhaust ventilation is strongly recommended.
+· Electrical: All components must be properly grounded and wired according to standards to prevent shock hazards.
+
+---
+
+End of Report
