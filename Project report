@@ -76,17 +76,12 @@ Proposed Future Development:
 3. Quantitative Material Testing: Build a test rig to measure tensile strength, layer adhesion, and tolerance statistics for each production batch.
 4. Module Standardization: Design the bottle cutter and extruder feed as standalone, open-source modules for others to easily replicate or improve.
 
-9. Repository & Open-Source Documentation
-All source code (Arduino/C++ for motor control), CAD files for mechanical parts, wiring diagrams, detailed build logs, and this evolving report are maintained in the public repository: [Insert Your Repository Link Here].
-The philosophy is to document not only successes but also failures and iterative adjustments, providing a realistic roadmap for community-driven development.
-
-10. Safety Considerations
+9. Safety Considerations
 
 · Thermal: High-temperature surfaces (extruder barrel, nozzle) pose burn risks. Proper insulation and warning labels are mandatory.
 · Mechanical: The cutting mechanism has sharp blades and pinch points. Protective guards and interlocks should be used.
 · Fumes: Melting PET can release acetaldehyde. Operation in a well-ventilated area or with local exhaust ventilation is strongly recommended.
 · Electrical: All components must be properly grounded and wired according to standards to prevent shock hazards.
 
----
 
 End of Report
